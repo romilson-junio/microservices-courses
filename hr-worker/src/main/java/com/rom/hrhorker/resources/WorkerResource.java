@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,9 +25,6 @@ public class WorkerResource {
 	
 	private static Logger logger = LoggerFactory.getLogger(WorkerResource.class);
 	
-	@Value("${test.config}")
-	private String testeConfig;
-	
 	@Autowired
 	private Environment environment;
 	
@@ -35,9 +33,8 @@ public class WorkerResource {
 
 	
 	@GetMapping(value = "/configs")
-	public ResponseEntity<String> configs(){
-		logger.info("CONFIG = "+ testeConfig);
-		return ResponseEntity.ok(testeConfig);
+	public ResponseEntity<Void> configs(){
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
 	@GetMapping
